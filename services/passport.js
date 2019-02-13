@@ -18,8 +18,7 @@ passport.use(
 		{
 			clientID: keys.googleclientID,
 			clientSecret: keys.googlesecret,
-			callbackURL: '/auth/google/callback',
-			proxy:true
+			callbackURL: 'https://thawing-reef-28565.herokuapp.com//auth/google/callback'
 		},
 		(accesstoken, refreshtoken, profile, done) => {
 			user.findOne({ googleId: profile.id }).then((olduser) => {
