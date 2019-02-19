@@ -7,6 +7,8 @@ require('./models/user');
 require('./services/passport')
 
 const app = express();
+app.use(passport.initialize());
+app.use(passport.session());
 const authroutes = require('./routes/authroutes');
 
 
@@ -17,10 +19,9 @@ app.use(
         keys:[keys.cookiekey]
     })
 );
-app.use(passport.initialize());
-app.use(passport.session());
 
-const PORT = process.env.PORT || 3000;
+
+const PORT = process.env.PORT || 2000;
 
 authroutes(app);
 
