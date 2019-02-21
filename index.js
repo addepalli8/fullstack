@@ -1,15 +1,17 @@
+const bodyParser = require('body-parser')
 const express = require('express');
-require('./models/user');
-require('./services/passport')
 const mongoose=require('mongoose');
 const cookiesession=require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
+require('./models/user');
+require('./models/survey');
+require('./services/passport');
 
 
-
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 const app = express();
+app.use(bodyParser.json());
 
 app.use(
     cookiesession({
@@ -20,6 +22,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 require('./routes/authroutes')(app);
+require('./routes/surveyroutes')(app);
 
 if(process.env.NODE_ENV==='production')
 {
